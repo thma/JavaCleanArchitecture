@@ -74,10 +74,10 @@ public class Reservation {
   }
 
   /**
-   *
+   * returns the number of available seats given a maximum capacity and a list of active reservations
    * @param maxCapacity
    * @param reservationsOnDay
-   * @return
+   * @return the number of available seats or zero if max capacity is already exceeded
    */
   public static int availableSeats(int maxCapacity, List<Reservation> reservationsOnDay) {
     int max = Math.abs(maxCapacity);
@@ -93,7 +93,7 @@ public class Reservation {
    * @param reservations
    * @return
    */
-  public void  addReservation(List<Reservation> reservations) {
+  public void addReservation(List<Reservation> reservations) {
     reservations.add(this);
   }
 
