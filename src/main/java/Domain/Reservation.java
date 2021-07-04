@@ -1,5 +1,6 @@
 package Domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Reservation {
   /**
    * the date of the reservation
    */
-  private final LocalDateTime date;
+  private final LocalDate date;
 
   /**
    * the name of the guest placing the reservation
@@ -34,7 +35,7 @@ public class Reservation {
   private final int quantity;
 
 
-  public Reservation(LocalDateTime date, String name, String emailAddress, int quantity) {
+  public Reservation(LocalDate date, String name, String emailAddress, int quantity) {
     this.date = date;
     this.name = name;
     this.emailAddress = emailAddress;
