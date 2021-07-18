@@ -24,7 +24,7 @@ public class ReservationUseCaseTests {
   private LocalDate aDay = LocalDate.of(2021,6,4);
 
   private Reservation fromRequestedCapacity(int requested) {
-    return new Reservation(aDay,"hapy customer", "happy@customer.com", requested);
+    return new Reservation(aDay,"happy customer", "happy@customer.com", requested);
   }
 
   private KeyValueStore<LocalDate, List<Reservation>> kvs = new KVSInMemoryImpl<>();
