@@ -31,6 +31,17 @@ public class ReservationUseCase {
 
   private Trace log;
 
+  public Trace getTrace() {
+    return log;
+  }
+
+  public  KeyValueStore<LocalDate, List<Reservation>> getKvs() {
+    return kvs;
+  }
+  // public ReservationUseCase() {
+
+  // }
+
   public ReservationUseCase(KeyValueStore<LocalDate, List<Reservation>> kvs, Trace log) {
     this.kvs = kvs;
     this.log = log;
@@ -41,7 +52,7 @@ public class ReservationUseCase {
     return 20;
   }
 
-  public int availableSeats(LocalDate date) {
+  public int availableSeats(LocalDate date,KeyValueStore<LocalDate, List<Reservation>> kvs, Trace log) {
     log.trace("compute available seats for " + date);
     List<Reservation> todaysReservations = kvs.get(date).orElse(new ArrayList<>());
     return Reservation.availableSeats(maxCapacity(), todaysReservations);

@@ -7,6 +7,6 @@ public class TraceConsoleImpl implements Trace {
 
   @Override
   public void trace(String message) {
-    System.out.println(message);
+    System.out.println("\\e[32m" + message);
   }
 }

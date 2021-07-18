@@ -6,9 +6,9 @@ import org.javatuples.Pair;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class KVSInMemoryImpl<K,V> implements KeyValueStore<K,V> {
+public class KVSInMemoryImpl<K, V> implements KeyValueStore<K, V> {
 
-  private final Map<K,V> inMemoryMap = new HashMap<K,V>();
+  private final Map<K, V> inMemoryMap = new HashMap<K, V>();
 
   @Override
   public Optional<V> get(K key) {
@@ -21,8 +21,10 @@ public class KVSInMemoryImpl<K,V> implements KeyValueStore<K,V> {
   }
 
   @Override
-  public List<Pair<K,V>> listAll() {
-    return inMemoryMap.entrySet().stream().map(entry -> new Pair<K,V>(entry.getKey(), entry.getValue())).collect(Collectors.toList());
+  public List<Pair<K, V>> listAll() {
+    return inMemoryMap.entrySet().stream()
+        .map(entry -> new Pair<K, V>(entry.getKey(), entry.getValue()))
+        .collect(Collectors.toList());
   }
 
   @Override
