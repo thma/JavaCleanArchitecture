@@ -1,6 +1,6 @@
-package InterfaceAdapters;
+package interfaceadapters;
 
-import UseCases.KeyValueStore;
+import usecases.KeyValueStore;
 import org.javatuples.Pair;
 
 import java.util.*;

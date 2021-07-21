@@ -1,4 +1,4 @@
-package UseCases;
+package usecases;
 
 /*
 This module specifies the Use Case layer for the Reservation system.
@@ -19,7 +19,7 @@ Please note: all functions in this module are pure and total functions.
 This makes it easy to test them in isolation.
  */
 
-import Domain.Reservation;
+import domain.Reservation;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -38,9 +38,7 @@ public class ReservationUseCase {
   public  KeyValueStore<LocalDate, List<Reservation>> getKvs() {
     return kvs;
   }
-  // public ReservationUseCase() {
 
-  // }
 
   public ReservationUseCase(KeyValueStore<LocalDate, List<Reservation>> kvs, Trace log) {
     this.kvs = kvs;

@@ -1,4 +1,4 @@
-import static Domain.Reservation.usedCapacity;
+import static domain.Reservation.usedCapacity;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
@@ -10,12 +10,12 @@ import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 
 import org.junit.runner.RunWith;
 
-import Domain.Reservation;
-import InterfaceAdapters.KVSInMemoryImpl;
-import InterfaceAdapters.TraceConsoleImpl;
-import UseCases.KeyValueStore;
-import UseCases.ReservationUseCase;
-import UseCases.Trace;
+import domain.Reservation;
+import interfaceadapters.KVSInMemoryImpl;
+import interfaceadapters.TraceConsoleImpl;
+import usecases.KeyValueStore;
+import usecases.ReservationUseCase;
+import usecases.Trace;
 
 @RunWith(JUnitQuickcheck.class)
 public class ReservationUseCaseTests {

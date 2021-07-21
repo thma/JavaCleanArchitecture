@@ -1,14 +1,13 @@
-import Domain.Reservation;
+import domain.Reservation;
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import org.junit.runner.RunWith;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static Domain.Reservation.usedCapacity;
+import static domain.Reservation.usedCapacity;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnitQuickcheck.class)

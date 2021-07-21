@@ -1,4 +1,4 @@
-package UseCases;
+package usecases;
 
 public interface Trace {
 
