@@ -103,6 +103,14 @@ public class Reservation {
     reservations.remove(this);
   }
 
+  public int getQuantity() {
+    return this.quantity;
+  }
+
+  public LocalDate getDate() {
+    return this.date;
+  }
+
   /**
    * a key value map holding a list of reservations for any given day
    */
