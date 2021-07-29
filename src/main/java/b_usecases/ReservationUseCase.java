@@ -1,4 +1,4 @@
-package usecases;
+package b_usecases;
 
 /*
 This module specifies the Use Case layer for the Reservation system.
@@ -19,7 +19,7 @@ Please note: all functions in this module are pure and total functions.
 This makes it easy to test them in isolation.
  */
 
-import domain.Reservation;
+import a_domain.Reservation;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,26 +31,24 @@ public class ReservationUseCase {
 
   private Trace log;
 
-  public Trace getTrace() {
-    return log;
-  }
-
-  public  KeyValueStore<LocalDate, List<Reservation>> getKvs() {
-    return kvs;
-  }
-
-
   public ReservationUseCase(KeyValueStore<LocalDate, List<Reservation>> kvs, Trace log) {
     this.kvs = kvs;
     this.log = log;
   }
 
+  public Trace getTrace() {
+    return log;
+  }
+
+  public KeyValueStore<LocalDate, List<Reservation>> getKvs() {
+    return kvs;
+  }
 
   public int maxCapacity() {
     return 20;
   }
 
-  public int availableSeats(LocalDate date,KeyValueStore<LocalDate, List<Reservation>> kvs, Trace log) {
+  public int availableSeats(LocalDate date) {
     log.trace("compute available seats for " + date);
     List<Reservation> todaysReservations = kvs.get(date).orElse(new ArrayList<>());
     return Reservation.availableSeats(maxCapacity(), todaysReservations);

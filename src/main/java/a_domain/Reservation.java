@@ -1,4 +1,4 @@
-package domain;
+package a_domain;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -42,39 +42,23 @@ public class Reservation {
   }
 
   /**
-   * a key value map holding a list of reservations for any given day
+   * computes the number of reserved seats for a list of reservations
    */
-  public class ReservationMap extends HashMap<String, Reservation> {
-  }
-
-  /**
-   *   computes the number of reserved seats for a list of reservations
-   */
-  public static int usedCapacity(List<Reservation> reservations){
+  public static int usedCapacity(List<Reservation> reservations) {
     if (reservations == null || reservations.isEmpty()) {
       return 0;
     } else {
       var acc = 0;
-      for (Reservation res: reservations) {
-        acc+= res.quantity;
+      for (Reservation res : reservations) {
+        acc += res.quantity;
       }
       return acc;
     }
   }
 
   /**
-   * check whether it is possible to add a reservation to the table.
-   * Return True if successful, else return False
-   * @param reservationsOnDay
-   * @param maxCapacity
-   * @return
-   */
-  public boolean isReservationPossible(List<Reservation> reservationsOnDay, int maxCapacity) {
-    return (availableSeats(maxCapacity, reservationsOnDay) >= this.quantity);
-  }
-
-  /**
    * returns the number of available seats given a maximum capacity and a list of active reservations
+   *
    * @param maxCapacity
    * @param reservationsOnDay
    * @return the number of available seats or zero if max capacity is already exceeded
@@ -89,7 +73,20 @@ public class Reservation {
   }
 
   /**
+   * check whether it is possible to add a reservation to the table.
+   * Return True if successful, else return False
+   *
+   * @param reservationsOnDay
+   * @param maxCapacity
+   * @return
+   */
+  public boolean isReservationPossible(List<Reservation> reservationsOnDay, int maxCapacity) {
+    return (availableSeats(maxCapacity, reservationsOnDay) >= this.quantity);
+  }
+
+  /**
    * add this reservation to a given list of reservations
+   *
    * @param reservations
    * @return
    */
@@ -99,10 +96,17 @@ public class Reservation {
 
   /**
    * cancel a reservation for a given list of reservations.
+   *
    * @param reservations
    */
   public void cancelReservation(List<Reservation> reservations) {
     reservations.remove(this);
+  }
+
+  /**
+   * a key value map holding a list of reservations for any given day
+   */
+  public class ReservationMap extends HashMap<String, Reservation> {
   }
 
 }

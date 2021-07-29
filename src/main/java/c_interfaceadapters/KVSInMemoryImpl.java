@@ -1,9 +1,12 @@
-package interfaceadapters;
+package c_interfaceadapters;
 
-import usecases.KeyValueStore;
+import b_usecases.KeyValueStore;
 import org.javatuples.Pair;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class KVSInMemoryImpl<K, V> implements KeyValueStore<K, V> {

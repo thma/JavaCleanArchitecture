@@ -1,9 +1,9 @@
-package interfaceadapters;
+package c_interfaceadapters;
 
-import domain.Reservation;
-import usecases.KeyValueStore;
-import usecases.ReservationUseCase;
-import usecases.Trace;
+import a_domain.Reservation;
+import b_usecases.KeyValueStore;
+import b_usecases.ReservationUseCase;
+import b_usecases.Trace;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,14 +12,14 @@ import java.util.List;
 @Service
 public class ReservationService {
 
+  private ReservationUseCase reservationUC;
+
   public ReservationService(KeyValueStore<LocalDate, List<Reservation>> kvs, Trace log) {
     reservationUC = new ReservationUseCase(kvs, log);
   }
 
-  private ReservationUseCase reservationUC;
-
   public int availableSeats(LocalDate date) {
-    return reservationUC.availableSeats(date, reservationUC.getKvs(), reservationUC.getTrace());
+    return reservationUC.availableSeats(date);
   }
 
 }

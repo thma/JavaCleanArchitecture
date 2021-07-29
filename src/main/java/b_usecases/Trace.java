@@ -1,4 +1,4 @@
-package usecases;
+package b_usecases;
 
 public interface Trace {
 

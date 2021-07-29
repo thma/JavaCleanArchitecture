@@ -1,5 +1,7 @@
-package interfaceadapters;
+package d_externalinterfaces;
 
+import c_interfaceadapters.ReservationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,12 +14,8 @@ import java.time.LocalDate;
 @RequestMapping("/reservation")
 public class ReservationController {
 
-  public ReservationController(ReservationService reservationService) {
-    this.reservationService = reservationService;
-  }
-
+  @Autowired
   private ReservationService reservationService;
-
 
   @GetMapping("/availableSeats/{date}")
   public int getAvailableSeats(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {

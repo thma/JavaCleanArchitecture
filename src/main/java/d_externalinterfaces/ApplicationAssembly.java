@@ -1,22 +1,26 @@
-package externalinterfaces;
+package d_externalinterfaces;
 
-import domain.Reservation;
-import interfaceadapters.KVSInMemoryImpl;
-import interfaceadapters.TraceConsoleImpl;
+import a_domain.Reservation;
+import b_usecases.KeyValueStore;
+import b_usecases.Trace;
+import c_interfaceadapters.KVSInMemoryImpl;
+import c_interfaceadapters.TraceConsoleImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import usecases.KeyValueStore;
-import usecases.Trace;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@ComponentScan({"interfaceadapters","usecases"})
+@ComponentScan({"c_interfaceadapters", "b_usecases"})
 @SpringBootApplication
 public class ApplicationAssembly {
+
+  public static void main(String[] args) {
+    SpringApplication.run(ApplicationAssembly.class, args);
+  }
 
   @SpringBootConfiguration
   class ApplicationConfiguration {
@@ -29,9 +33,5 @@ public class ApplicationAssembly {
     Trace getTrace() {
       return new TraceConsoleImpl();
     }
-  }
-
-  public static void main(String[] args) {
-    SpringApplication.run(ApplicationAssembly.class, args);
   }
 }

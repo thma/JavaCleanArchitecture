@@ -1,6 +1,6 @@
-package interfaceadapters;
+package c_interfaceadapters;
 
-import usecases.Trace;
+import b_usecases.Trace;
 
 public class TraceConsoleImpl implements Trace {
 

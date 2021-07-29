@@ -1,4 +1,4 @@
-import domain.Reservation;
+import a_domain.Reservation;
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import org.junit.runner.RunWith;
@@ -7,16 +7,16 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static domain.Reservation.usedCapacity;
+import static a_domain.Reservation.usedCapacity;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnitQuickcheck.class)
 public class ReservationTests {
 
-  private LocalDate aDay = LocalDate.of(2021,6,4);
+  private LocalDate aDay = LocalDate.of(2021, 6, 4);
 
   private Reservation fromRequestedCapacity(int requested) {
-    return new Reservation(aDay,"hapy customer", "happy@customer.com", requested);
+    return new Reservation(aDay, "hapy customer", "happy@customer.com", requested);
   }
 
 
