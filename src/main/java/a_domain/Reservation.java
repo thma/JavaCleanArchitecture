@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * This module implements the business logic for seat reservations in a very small boutique restaurant.
- * The restaurant has only one table with 20 tables.
+ * The restaurant has only one table with 20 seats.
  * Each day the restaurants accepts only 20 seat reservations. (There is no limited time-slot for each guest.)
  * Please note: all functions in this module are pure and total.
  * This makes it easy to test them in isolation.
