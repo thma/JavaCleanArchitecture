@@ -111,10 +111,10 @@ public class Reservation {
     return this.date;
   }
 
-  /**
-   * a key value map holding a list of reservations for any given day
-   */
-  public class ReservationMap extends HashMap<String, Reservation> {
-  }
+//  /**
+//   * a key value map holding a list of reservations for any given day
+//   */
+//  public class ReservationMap extends HashMap<String, Reservation> {
+//  }
 
 }

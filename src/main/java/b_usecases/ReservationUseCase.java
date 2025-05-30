@@ -2,7 +2,7 @@ package b_usecases;
 
 /*
 This module specifies the Use Case layer for the Reservation system.
-It coordinates access to Effects and the actual domain logic.
+It coordinates access to Effects and the actual a_domain logic.
 The module exposes service functions that will be used by the REST API in the External layer.
 Implemented Use Cases:
 1. Display the number of available seats for a given day
@@ -13,8 +13,7 @@ Implemented Use Cases:
 4. Delete a given reservation from the system in case of a cancellation.
    NO functional error is required if the reservation is not present in the system.
 5. Display a List of all reservation in the system.
-All Effects are specified as Polysemy Members.
-Interpretation of Effects is implemented on the level of application assembly, or in the context of unit tests.
+
 Please note: all functions in this module are pure and total functions.
 This makes it easy to test them in isolation.
  */
@@ -59,30 +58,6 @@ public class ReservationUseCase {
     List<Reservation> todaysReservations = kvs.get(date).orElse(new ArrayList<>());
     return Reservation.availableSeats(maxCapacity(), todaysReservations);
   }
-
-  /*
-  -- | try to add a reservation to the table.
--- | Return Just the modified table if successful, else return Nothing
--- | implements UseCase 2.
-tryReservation :: (Member Persistence r, Member (Error ReservationError) r, Member Trace r) => Dom.Reservation -> Sem r ()
-tryReservation res@(Dom.Reservation date _ _ requestedQuantity)  = do
-  trace $ "trying to reservate " ++ show requestedQuantity ++ " more seats on " ++ show date
-  todaysReservations <- fetch date
-  let available = Dom.availableSeats maxCapacity todaysReservations
-  if Dom.isReservationPossible res todaysReservations maxCapacity
-    then persistReservation res
-    else throw $ ReservationNotPossible ("Sorry, only " ++ show available ++ " seats left on " ++ show date)
-
-  where
-    -- | persist a reservation to the reservation table.
-    persistReservation :: (Member (KVS Day [Dom.Reservation]) r, Member Trace r)  => Dom.Reservation -> Sem r ()
-    persistReservation r@(Dom.Reservation day _ _ _ ) = do
-      trace $ "enter a new reservation to KV store: " ++ show r
-      rs <- fetch day
-      let updated = Dom.addReservation r rs
-      trace $ "storing: " ++ show updated
-      insertKvs day updated
-   */
 
   public void tryReservation(Reservation reservation) throws ReservationNotPossibleException {
     log.trace("trying to reservate " + reservation.getQuantity() + " more seats on " + reservation.getDate());

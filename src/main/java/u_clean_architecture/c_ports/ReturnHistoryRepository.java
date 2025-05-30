@@ -1,4 +1,4 @@
-package u_clean_architecture.b_usecases;
+package u_clean_architecture.c_ports;
 
 import u_clean_architecture.a_domain.Return;
 

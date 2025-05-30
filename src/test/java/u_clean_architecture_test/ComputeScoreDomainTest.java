@@ -11,10 +11,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DomainTest {
+public class ComputeScoreDomainTest {
 
   @Test
-  public void testZeroScoreForCustomerWithNoOrdersOrReturns() {
+  public void test100ScoreForCustomerWithNoOrdersOrReturns() {
     // Given
     Customer customer = new Customer(1L);
 
@@ -23,7 +23,7 @@ public class DomainTest {
     List<Return> returns = List.of(); // Assuming we have an empty list of returns for this test
 
     // Then
-    assertEquals(0, customer.calculateSimpleScore(orders,returns));
+    assertEquals(100, customer.calculateScore(orders,returns));
   }
 
   @Test
@@ -31,17 +31,38 @@ public class DomainTest {
     // Given
     Customer customer = new Customer(1L);
     List<Order> orders = List.of(
-        new Order(1L, BigDecimal.valueOf(100)),
-        new Order(2L, BigDecimal.valueOf(200))
+        new Order(1L, BigDecimal.valueOf(100))
     );
     List<Return> returns = List.of(
-        new Return(1L, LocalDate.now())
+        new Return(1L, LocalDate.now(), BigDecimal.valueOf(50))
     );
 
     // When
-    int score = customer.calculateSimpleScore(orders, returns);
+    int score = customer.calculateScore(orders, returns);
 
     // Then
-    assertEquals(20, score); // Assuming the score is calculated as total order amount minus total return amount
+    assertEquals(50, score);
+  }
+
+  @Test
+  public void testScoreCalculationWithMultipleOrdersAndReturns() {
+    // Given
+    Customer customer = new Customer(1L);
+    List<Order> orders = List.of(
+        new Order(1L, BigDecimal.valueOf(100)),
+        new Order(2L, BigDecimal.valueOf(200)),
+        new Order(3L, BigDecimal.valueOf(100)),
+        new Order(4L, BigDecimal.valueOf(100)),
+        new Order(5L, BigDecimal.valueOf(500))
+    );
+    List<Return> returns = List.of(
+        new Return(5L, LocalDate.now(), BigDecimal.valueOf(500))
+    );
+
+    // When
+    int score = customer.calculateScore(orders, returns);
+
+    // Then
+    assertEquals(50, score);
   }
 }

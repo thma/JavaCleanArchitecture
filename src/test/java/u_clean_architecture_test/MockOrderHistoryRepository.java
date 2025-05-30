@@ -1,7 +1,7 @@
-package u_clean_architecture;
+package u_clean_architecture_test;
 
 import u_clean_architecture.a_domain.Order;
-import u_clean_architecture.b_usecases.OrderHistoryRepository;
+import u_clean_architecture.c_ports.OrderHistoryRepository;
 
 import java.util.List;
 

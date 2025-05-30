@@ -1,7 +1,7 @@
-package u_clean_architecture.c_adapters;
+package u_clean_architecture.d_adapters;
 
 import org.slf4j.LoggerFactory;
-import u_clean_architecture.b_usecases.Logger;
+import u_clean_architecture.c_ports.Logger;
 
 public class Slf4jLoggerAdapter implements Logger {
 

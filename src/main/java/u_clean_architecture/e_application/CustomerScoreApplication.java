@@ -1,16 +1,16 @@
-package u_clean_architecture.d_application;
+package u_clean_architecture.e_application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import u_clean_architecture.b_usecases.CustomerScoreUseCase;
-import u_clean_architecture.b_usecases.Logger;
-import u_clean_architecture.b_usecases.OrderHistoryRepository;
-import u_clean_architecture.b_usecases.ReturnHistoryRepository;
-import u_clean_architecture.c_adapters.JdbcOrderHistoryRepository;
-import u_clean_architecture.c_adapters.JdbcReturnHistoryRepository;
-import u_clean_architecture.c_adapters.Slf4jLoggerAdapter;
+import u_clean_architecture.c_ports.Logger;
+import u_clean_architecture.c_ports.OrderHistoryRepository;
+import u_clean_architecture.c_ports.ReturnHistoryRepository;
+import u_clean_architecture.d_adapters.JdbcOrderHistoryRepository;
+import u_clean_architecture.d_adapters.JdbcReturnHistoryRepository;
+import u_clean_architecture.d_adapters.Slf4jLoggerAdapter;
 
 @SpringBootApplication
 public class CustomerScoreApplication {

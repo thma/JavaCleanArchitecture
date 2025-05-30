@@ -28,7 +28,7 @@ public class ReservationUseCaseTests {
 
   @Property
   public void checkUsedCapacity(List<Integer> ints) {
-    List<Reservation> reservations = ints.stream().map(this::fromRequestedCapacity).collect(Collectors.toList());
+    List<Reservation> reservations = ints.stream().map(this::fromRequestedCapacity).toList();
     int expected = ints.stream()
         .map(Math::abs)
         .mapToInt(Integer::intValue)

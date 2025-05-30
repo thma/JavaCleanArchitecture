@@ -1,4 +1,4 @@
-package u_clean_architecture.b_usecases;
+package u_clean_architecture.c_ports;
 
 public interface Logger {
   void info(String message);

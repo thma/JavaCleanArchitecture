@@ -1,4 +1,4 @@
-package z_n_tier_architecture;
+package x_clean_architecture;
 
 public class User {
   private Long id;

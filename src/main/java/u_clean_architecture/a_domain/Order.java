@@ -1,4 +1,4 @@
-package u_clean_architecture.domain;
+package u_clean_architecture.a_domain;
 
 
 import java.math.BigDecimal;

@@ -2,14 +2,20 @@
 
 @import 'gaia';
 
+
 section {
-  font-family: Lato, 'Avenir Next', Avenir, 'Trebuchet MS', 'Segoe UI', sans-serif;
+  font-family: 'TheSans for Ista', Lato, 'Avenir Next', Avenir, 'Trebuchet MS', 'Segoe UI', sans-serif;
   align-items: stretch;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
-  width: 1920px;
-  height: 1080px;
+  width: 1980px;
+  height: 1280px;
+  margin: 0 auto;
+  padding: 5 2;
+  background-color: #f0f0f0;
+  color: #333;
+  line-height: 1.5;
 }
 
 section.title {
@@ -20,14 +26,14 @@ section.title {
 div.columns-2 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1em;
-  grid-gap: 1em;
+  gap: 0.5em;
+  grid-gap: 0.5em;
 }
 div.columns-3 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1em;
-  grid-gap: 1em;
+  gap: 0.5em;
+  grid-gap: 0.5em;
 }
 
 

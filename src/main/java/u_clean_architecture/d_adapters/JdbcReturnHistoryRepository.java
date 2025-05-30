@@ -1,9 +1,9 @@
-package u_clean_architecture.c_adapters;
+package u_clean_architecture.d_adapters;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import u_clean_architecture.a_domain.Return;
-import u_clean_architecture.b_usecases.ReturnHistoryRepository;
+import u_clean_architecture.c_ports.ReturnHistoryRepository;
 
 import java.util.List;
 
