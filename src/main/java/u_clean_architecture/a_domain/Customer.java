@@ -1,7 +1,6 @@
 package u_clean_architecture.a_domain;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.Objects;
 

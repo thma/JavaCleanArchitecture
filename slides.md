@@ -227,11 +227,93 @@ public class OrderRepository {
 
 # Let's try to fix it
 
-- Take domain driven design seriously: put the domain model at the center of our architecture.
+- Take domain driven design seriously: put the **domain** model at the center of our architecture.
 - Have Business logic and business rules in the domain model. The domain model won't depend on anything (but Java).
+- Specific **use cases** are implemented around the domain model. They can access the domain model and use it to implement the business rules.
+If uses need to access data, services or API's, they will call against interfaces (aka. **ports**), avoiding any direct dependencies.
+Thus the business logic does not have any dependencies to infrastructure code, like Spring, JPA, etc.
+This makes it easy to test the business logic in isolation, without any dependencies to infrastructure code.
+- Around the use cases, we will implement the infrastructure code, like Spring, JPA, etc. This code is organized in **adapters**, which implement the interfaces (ports) defined in the use cases.
+- in the most external layer, we will implement the user interface, like REST controllers, which call the use cases to execute the business logic.
+SpringBoot will be used to assemble the **application**, wiring the adapters and use cases together.
+- There is a strict outside-in **dependency rule**: the domain model does not depend on anything, the use cases depend on the domain model, the adapters depend on the use cases (and ports), and the application depends on the adapters and the use case layer.
 
 
-- Use the **Dependency Inversion Principle**: high-level modules should not depend on low-level modules. Both should depend on abstractions.
+----
+
+# Let's have a look at the code
+<div class="columns-3">
+  <div>
+
+```java
+// Domain Model
+public class Customer {
+
+  public int calculateScore(List<Order> orders, 
+                            List<Return> returns) {
+    BigDecimal totalOrderValue = orders.stream()
+        .map(Order::getAmount)
+        .filter(Objects::nonNull)
+        .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+    BigDecimal totalReturnValue = returns.stream()
+        .map(Return::getAmount)
+        .filter(Objects::nonNull)
+        .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+    if (totalReturnValue.equals(BigDecimal.ZERO) 
+     || totalOrderValue.equals(BigDecimal.ZERO)) {
+      return 100;
+    } else {
+      return totalOrderValue.subtract(totalReturnValue)
+          .divide(totalOrderValue)
+          .multiply(BigDecimal.valueOf(100))
+          .intValue();
+    }
+  }
+}
+```
+</div>
+  <div>
+
+```java
+// Use Case
+public class CustomerScoreUseCase {
+
+  private final OrderRepository orderRepo;
+  private final ReturnRepository returnRepo;
+  private final Logger logger;
+
+  public CustomerScoreUseCase(OrderRepository orderRepo,
+                              ReturnRepository returnRepo,
+                              Logger logger) {
+    this.orderRepo = orderRepo;
+    this.returnRepo = returnRepo;
+    this.logger = logger;
+  }
+
+  public int calculateScore(long customerId ) {
+    logger.info("Calculating score for customer " + customerId);
+
+    List<Order> orders = orderRepo.findOrdersByCustomerId(customerId);
+    List<Return> returns = returnRepo.findReturnsByCustomerId(customerId);
+
+    Customer customer = new Customer(customerId);
+    int score = customer.calculateScore(orders, returns);
+
+    logger.info("Customer " + customerId + " has score " + score);
+    return score;
+  }
+}
+```
+  </div>
+  <div>
+
+```java 
+// Adapter
+```
+  </div>
+</div>
 
 ----
 
