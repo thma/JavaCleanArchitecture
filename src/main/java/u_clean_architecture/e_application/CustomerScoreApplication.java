@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import u_clean_architecture.b_usecases.CustomerScoreUseCase;
 import u_clean_architecture.c_ports.Logger;
-import u_clean_architecture.c_ports.OrderHistoryRepository;
-import u_clean_architecture.c_ports.ReturnHistoryRepository;
-import u_clean_architecture.d_adapters.JdbcOrderHistoryRepository;
-import u_clean_architecture.d_adapters.JdbcReturnHistoryRepository;
+import u_clean_architecture.c_ports.OrderRepository;
+import u_clean_architecture.c_ports.ReturnRepository;
+import u_clean_architecture.d_adapters.JdbcOrderRepository;
+import u_clean_architecture.d_adapters.JdbcReturnRepository;
 import u_clean_architecture.d_adapters.Slf4jLoggerAdapter;
 
 @SpringBootApplication
@@ -22,20 +22,20 @@ public class CustomerScoreApplication {
   // === Clean Architecture Wiring ===
 
   @Bean
-  public CustomerScoreUseCase customerScoreUseCase(OrderHistoryRepository orderRepo,
-                                                   ReturnHistoryRepository returnRepo,
+  public CustomerScoreUseCase customerScoreUseCase(OrderRepository orderRepo,
+                                                   ReturnRepository returnRepo,
                                                    Logger logger) {
     return new CustomerScoreUseCase(orderRepo, returnRepo, logger);
   }
 
   @Bean
-  public OrderHistoryRepository orderHistoryRepository(JdbcTemplate jdbcTemplate) {
-    return new JdbcOrderHistoryRepository(jdbcTemplate);
+  public OrderRepository orderHistoryRepository(JdbcTemplate jdbcTemplate) {
+    return new JdbcOrderRepository(jdbcTemplate);
   }
 
   @Bean
-  public ReturnHistoryRepository returnHistoryRepository(JdbcTemplate jdbcTemplate) {
-    return new JdbcReturnHistoryRepository(jdbcTemplate);
+  public ReturnRepository returnHistoryRepository(JdbcTemplate jdbcTemplate) {
+    return new JdbcReturnRepository(jdbcTemplate);
   }
 
   @Bean

@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ComputeScoreUseCaseTest {
 
   CustomerScoreUseCase customerScoreUseCase = new CustomerScoreUseCase(
-      new MockOrderHistoryRepository(List.of()),
-      new MockReturnHistoryRepository(List.of()),
+      new MockOrderRepository(List.of()),
+      new MockReturnRepository(List.of()),
       new Slf4jLoggerAdapter()
   );
 

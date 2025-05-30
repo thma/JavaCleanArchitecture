@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 import u_clean_architecture.a_domain.Order;
 import u_clean_architecture.b_usecases.CustomerScoreUseCase;
 import u_clean_architecture.c_ports.Logger;
-import u_clean_architecture.c_ports.OrderHistoryRepository;
-import u_clean_architecture.c_ports.ReturnHistoryRepository;
+import u_clean_architecture.c_ports.OrderRepository;
+import u_clean_architecture.c_ports.ReturnRepository;
 import u_clean_architecture.d_adapters.Slf4jLoggerAdapter;
 import u_clean_architecture.e_application.CustomerScoreController;
 
@@ -21,10 +21,10 @@ import java.sql.SQLFeatureNotSupportedException;
 import java.util.List;
 
 @SpringBootApplication
-public class CustomerScoreMOCKApplication {
+public class CustomerScoreMockApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(CustomerScoreMOCKApplication.class, args);
+    SpringApplication.run(CustomerScoreMockApplication.class, args);
   }
 
   @Bean
@@ -33,23 +33,23 @@ public class CustomerScoreMOCKApplication {
   }
 
   @Bean
-  public CustomerScoreUseCase customerScoreUseCase(@Qualifier("MockOrders") OrderHistoryRepository orderRepo,
-                                                   @Qualifier("MockReturns") ReturnHistoryRepository returnRepo,
+  public CustomerScoreUseCase customerScoreUseCase(@Qualifier("MockOrders") OrderRepository orderRepo,
+                                                   @Qualifier("MockReturns") ReturnRepository returnRepo,
                                                    Logger logger) {
     return new CustomerScoreUseCase(orderRepo, returnRepo, logger);
   }
 
   @Bean(name = "MockOrders")
-  public OrderHistoryRepository orderHistoryRepository() {
-    return new MockOrderHistoryRepository(List.of(
+  public OrderRepository orderHistoryRepository() {
+    return new MockOrderRepository(List.of(
         new Order(0L, BigDecimal.TEN),
         new Order(1L, BigDecimal.valueOf(100))
     ));
   }
 
   @Bean(name = "MockReturns")
-  public ReturnHistoryRepository returnHistoryRepository() {
-    return new MockReturnHistoryRepository(List.of());
+  public ReturnRepository returnHistoryRepository() {
+    return new MockReturnRepository(List.of());
   }
 
   @Bean
