@@ -350,12 +350,55 @@ public class JdbcOrderRepository implements OrderRepository {
 
 # Benefits of Clean Architecture
 - **Domain-Driven Design**: Encourages a rich domain model with behavior, avoiding anaemic models.
+- **Inversion of Control**: The architecture promotes inversion of control, as the use cases depend on interfaces (ports) rather than concrete implementations, allowing for better decoupling and flexibility. Leading to:
+  - Decoupling interface contracts from implementation details.
+  - improved testability and maintainability.
+  - Code re-use and separation of concerns.
 - **Testability**: Use cases and domain logic can be tested in isolation without any dependencies on frameworks or infrastructure.
 - **Flexibility**: Easy to change or replace adapters without affecting the core business logic.
-- **Maintainability**: Clear separation between domain logic, use cases, and infrastructure code, making it easier to maintain and evolve the codebase. 
+- **Maintainability**: Clear separation between domain logic, use cases, and infrastructure code, making it easier to refactor and evolve the codebase. 
 - **Technology Agnostic**: The core business logic is independent of any frameworks or libraries, making it easier to switch technologies if needed.
 - **Verifiable**: The architecture is verifiable, as it follows a strict dependency rule. This can be enforced by tools like [ArchUnit](https://medium.com/@jugurtha.aitoufella/enforcing-and-testing-your-java-clean-architecture-project-with-archunit-56569f3fd547), ensuring that the architecture is respected and maintained over time.
 
+----
 
+# Potential Drawbacks of Clean Architecture
+- **Complexity**: The architecture can be more complex than traditional 3-tier architectures, especially for small projects or prototypes.
+- **Learning Curve**: Developers need to understand the principles of Clean Architecture and Domain-Driven Design, which can take time.
+- **Overhead**: For simple applications, the overhead of creating multiple layers and interfaces may not be justified.
+- **Initial Setup**: Setting up the architecture can take more time initially, as it requires defining interfaces, adapters, and use cases.
+- **Not a Silver Bullet**: Clean Architecture does not solve all problems; it is a tool that needs to be applied correctly and in the right context.
+- **Potential for Over-Engineering**: There is a risk of over-engineering, especially if the architecture is applied to small or simple projects where a simpler design would suffice.
 
+----
 
+# Further Readings annd Links
+
+- [Clean Architecture by Robert C. Martin](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164)
+- [Implementing Domain-Driven Design by Vaughn Vernon](https://www.amazon.com/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577)
+
+- [Organizing Layers Using Hexagonal Architecture, DDD, and Spring](https://www.baeldung.com/hexagonal-architecture-ddd-spring)
+- [ArchUnit - Testing Java Architecture](https://www.archunit.org/)
+
+- [Clean Architecture in Java - GitHub Repository](https://github.com/thma/JavaCleanArchitecture)
+
+---
+# Any Questions?
+<style scoped>
+h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-top: 2em;
+}
+h2 {
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: 1em;
+}
+p {
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 1em;
+}
+</style>
+## Thanks for your attention!
