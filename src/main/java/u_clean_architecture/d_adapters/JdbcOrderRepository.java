@@ -20,8 +20,8 @@ public class JdbcOrderRepository implements OrderRepository {
   public List<Order> findOrdersByCustomerId(Long customerId) {
     return jdbcTemplate.query(
         "SELECT * FROM orders WHERE customer_id = ?",
-        new Object[]{customerId},
-        (rs, rowNum) -> new Order(rs.getLong("id"), rs.getBigDecimal("amount"))
+        (rs, rowNum) -> new Order(rs.getLong("id"), rs.getBigDecimal("amount")),
+        customerId
     );
   }
 }

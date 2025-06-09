@@ -228,15 +228,23 @@ public class OrderRepository {
 # Let's try to fix it
 
 - Take domain driven design seriously: put the **domain** model at the center of our architecture.
-- Have Business logic and business rules in the domain model. The domain model won't depend on anything (but Java).
-- Specific **use cases** are implemented around the domain model. They can access the domain model and use it to implement the business rules.
-If uses need to access data, services or API's, they will call against interfaces (aka. **ports**), avoiding any direct dependencies.
-Thus the business logic does not have any dependencies to infrastructure code, like Spring, JPA, etc.
-This makes it easy to test the business logic in isolation, without any dependencies to infrastructure code.
-- Around the use cases, we will implement the infrastructure code, like Spring, JPA, etc. This code is organized in **adapters**, which implement the interfaces (ports) defined in the use cases.
-- in the most external layer, we will implement the user interface, like REST controllers, which call the use cases to execute the business logic.
-SpringBoot will be used to assemble the **application**, wiring the adapters and use cases together.
-- There is a strict outside-in **dependency rule**: the domain model does not depend on anything, the use cases depend on the domain model, the adapters depend on the use cases (and ports), and the application depends on the adapters and the use case layer.
+  - Have business rules (like `calculateScore`) in the domain model. 
+  - The domain model will be **independent** of any frameworks, libraries or infrastructure code. 
+- Specific **use cases** are implemented around the domain model. They can access the domain model and use it to implement the business logic.
+  - If use cases need to access data, services or API's, they will call against interfaces (aka. **ports**), avoiding any direct dependencies. Thus the business logic does not call infrastructure code or frameworks, like Spring, JPA, etc. 
+- Around the use cases, we will implement the actual infrastructure code (e.g. DB access, API access, messaging, logging). This code is organized in **interface adapters**, which implement the interfaces (ports).
+- In the most external layer, we will implement the **external interface**, like REST controllers, which will delegate to the use cases to execute the business logic. SpringBoot will be used to assemble the **application**, wiring the adapters and use cases.
+- Apply a strict **outside-in dependency rule**: 
+  - the **domain model** does not depend on anything, 
+  - the **use cases (and ports)** depend on the domain model, 
+  - the **adapters** depend on the use cases (and ports), and 
+  - the **application** (aka. frameworks and drivers) depends on the adapters and the use case layer.
+
+----
+
+# Clean Architecture: The Big Picture
+
+![width:1720px](./clean-architecture.png)
 
 
 ----
@@ -265,7 +273,8 @@ public class Customer {
      || totalOrderValue.equals(BigDecimal.ZERO)) {
       return 100;
     } else {
-      return totalOrderValue.subtract(totalReturnValue)
+      return totalOrderValue
+          .subtract(totalReturnValue)
           .divide(totalOrderValue)
           .multiply(BigDecimal.valueOf(100))
           .intValue();
@@ -311,15 +320,42 @@ public class CustomerScoreUseCase {
 
 ```java 
 // Adapter
+@Repository
+public class JdbcOrderRepository implements OrderRepository {
+
+  private final JdbcTemplate jdbcTemplate;
+
+  public JdbcOrderRepository(JdbcTemplate jdbcTemplate) {
+    this.jdbcTemplate = jdbcTemplate;
+  }
+
+  @Override
+  public List<Order> findOrdersByCustomerId(Long customerId) {
+    return jdbcTemplate.query(
+        "SELECT * FROM orders WHERE customer_id = ?",
+        (rs, rowNum) -> new Order(
+          rs.getLong("id"), 
+          rs.getBigDecimal("amount")),
+        customerId
+    );
+  }
+}
+
+
 ```
   </div>
 </div>
 
 ----
 
-# Clean Architecture
+# Benefits of Clean Architecture
+- **Domain-Driven Design**: Encourages a rich domain model with behavior, avoiding anaemic models.
+- **Testability**: Use cases and domain logic can be tested in isolation without any dependencies on frameworks or infrastructure.
+- **Flexibility**: Easy to change or replace adapters without affecting the core business logic.
+- **Maintainability**: Clear separation between domain logic, use cases, and infrastructure code, making it easier to maintain and evolve the codebase. 
+- **Technology Agnostic**: The core business logic is independent of any frameworks or libraries, making it easier to switch technologies if needed.
+- **Verifiable**: The architecture is verifiable, as it follows a strict dependency rule. This can be enforced by tools like [ArchUnit](https://medium.com/@jugurtha.aitoufella/enforcing-and-testing-your-java-clean-architecture-project-with-archunit-56569f3fd547), ensuring that the architecture is respected and maintained over time.
 
-![width:1720px](./clean-architecture.png)
 
 
-----
+
