@@ -3,27 +3,28 @@ marp: true
 theme: istanbul
 _class: title
 _paginate: false
-#_color: white
-#_backgroundImage: url('ista-title-bg.png')
 paginate: true
-#backgroundImage: url('ista-bg.png')
 transition: in-out
 math: mathjax
 ---
 
-# Clean Architecture in Java
+# Clean Architecture in Java / SpringBoot
 
 Thomas Mahler, Senior IT-Architect, ista SE
 
 ---
 
-<!-- _class: title -->
 
-# “No matter how bad you are, <br>you’re not totally useless. <br>You can still be used as a bad example.” <br>– Unknown
+# What is this talk about?
+
+<div style="text-align: center; font-size: 1.2em;">
+
+![width:1020px](./tagcloud-clean-architecture.png)
+</div>
 
 --- 
 
-# So, let's learn from a bad example...
+# So, let's learn from a bad example ...
 
 <style scoped>
 pre {
@@ -90,7 +91,7 @@ public class CustomerScoreService {
 
 - **It's a big ball of mud:** Spring Boot Service, dependency injection, business logic and data access are all mixed together in one class.
 
-- **Tightly Coupled**: The service is tightly coupled to the database schema and the specific SQL queries, making it hard to change or test.
+- **Tightly Coupled**: The service is directly coupled to the database schema and the specific SQL queries, making it hard to change or test.
 
 - **No Separation of Concerns**: Business logic is mixed with data access logic, violating the Single Responsibility Principle.
 
@@ -351,24 +352,23 @@ public class JdbcOrderRepository implements OrderRepository {
 # Benefits of Clean Architecture
 - **Domain-Driven Design**: Encourages a rich domain model with behavior, avoiding anaemic models.
 - **Inversion of Control**: The architecture promotes inversion of control, as the use cases depend on interfaces (ports) rather than concrete implementations, allowing for better decoupling and flexibility. Leading to:
-  - Decoupling interface contracts from implementation details.
-  - improved testability and maintainability.
-  - Code re-use and separation of concerns.
-- **Testability**: Use cases and domain logic can be tested in isolation without any dependencies on frameworks or infrastructure.
-- **Flexibility**: Easy to change or replace adapters without affecting the core business logic.
-- **Maintainability**: Clear separation between domain logic, use cases, and infrastructure code, making it easier to refactor and evolve the codebase. 
+  - **Testability**: Use cases and domain logic can be tested in isolation without any dependencies on frameworks or infrastructure.
+  - **Flexibility**: Easy to change or replace adapters without affecting the core business logic. As interface contracts are decoupled from implementation details.
+  - **Maintainability**: Clear separation between domain logic, use cases, and infrastructure code, making it easier to re-use, refactor and evolve the codebase. 
 - **Technology Agnostic**: The core business logic is independent of any frameworks or libraries, making it easier to switch technologies if needed.
-- **Verifiable**: The architecture is verifiable, as it follows a strict dependency rule. This can be enforced by tools like [ArchUnit](https://medium.com/@jugurtha.aitoufella/enforcing-and-testing-your-java-clean-architecture-project-with-archunit-56569f3fd547), ensuring that the architecture is respected and maintained over time.
+- **Verifiable**: The architecture can be automatically verified as it follows a strict dependency rule. This can be enforced by tools like [ArchUnit](https://medium.com/@jugurtha.aitoufella/enforcing-and-testing-your-java-clean-architecture-project-with-archunit-56569f3fd547) to ensure the architecture is maintained over time.
 
 ----
 
-# Potential Drawbacks of Clean Architecture
-- **Complexity**: The architecture can be more complex than traditional 3-tier architectures, especially for small projects or prototypes.
-- **Learning Curve**: Developers need to understand the principles of Clean Architecture and Domain-Driven Design, which can take time.
-- **Overhead**: For simple applications, the overhead of creating multiple layers and interfaces may not be justified.
-- **Initial Setup**: Setting up the architecture can take more time initially, as it requires defining interfaces, adapters, and use cases.
-- **Not a Silver Bullet**: Clean Architecture does not solve all problems; it is a tool that needs to be applied correctly and in the right context.
+# Sounds good, but ...
+- **Learning Curve**: Clean Architecture can be complex and may require a shift in mindset for developers who are used to traditional architectures.
+
 - **Potential for Over-Engineering**: There is a risk of over-engineering, especially if the architecture is applied to small or simple projects where a simpler design would suffice.
+
+- **Initial Setup**: Setting up the architecture can take more time initially, as it requires defining interfaces, adapters, and use cases.
+
+
+
 
 ----
 
@@ -379,8 +379,9 @@ public class JdbcOrderRepository implements OrderRepository {
 
 - [Organizing Layers Using Hexagonal Architecture, DDD, and Spring](https://www.baeldung.com/hexagonal-architecture-ddd-spring)
 - [ArchUnit - Testing Java Architecture](https://www.archunit.org/)
+- [ArchUnit Onion Architecture template](https://www.archunit.org/userguide/html/000_Index.html#_onion_architecture)
 
-- [Clean Architecture in Java - GitHub Repository](https://github.com/thma/JavaCleanArchitecture)
+- [GitHub Repo for my slides](https://github.com/thma/JavaCleanArchitecture)
 
 ---
 # Any Questions?
