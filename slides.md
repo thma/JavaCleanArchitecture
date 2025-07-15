@@ -15,7 +15,7 @@ Thomas Mahler, Senior IT-Architect, ista SE
 ---
 
 
-# What is this talk about?
+# How to approach such a broad topic?
 
 <div style="text-align: center; font-size: 1.2em;">
 
@@ -104,7 +104,7 @@ public class CustomerScoreService {
 
 ----
 
-## Our excuses
+# Our excuses
 
 - **"It's just a prototype!"**: Prototypes can become production code, and poor design will haunt us later.
 
@@ -119,6 +119,9 @@ public class CustomerScoreService {
 - **"Requirements were poor!"**: requirements will always be vague and incomplete, but we can still design our code to be flexible and adaptable.
 
 - **"We don't have the budget for it!"**: Investing in good design pays off by reducing technical debt and improving maintainability.
+
+## So, let's try to improve!
+
 
 ----
 
@@ -217,7 +220,7 @@ public class OrderRepository {
 - **No clear separation of concerns:** the service layer is still responsible for both business logic and data access.
 - **Business logic in the service layer is still tightly coupled** to the data access layer, as it contains data access calls.
 - **Simple junit tests not possible:** you'll either need to mock the repositories or use an in-memory database.
-- **How to test the business logic in isolation?**
+- **How to test the actual business logic (the score calculation) in isolation?**
 - **Anaemic domain model:** the domain model (Order, Return) is just a data structure without any behavior or business logic.
 
 ### blame it on the dependency graph!
@@ -226,7 +229,7 @@ public class OrderRepository {
 
 ----
 
-# Let's try to fix it
+# Let's try to fix it with an onion-like architecture
 
 - Take domain driven design seriously: put the **domain** model at the center of our architecture.
   - Have business rules (like `calculateScore`) in the domain model. 
@@ -361,9 +364,9 @@ public class JdbcOrderRepository implements OrderRepository {
 ----
 
 # Sounds good, but ...
-- **Learning Curve**: Clean Architecture can be complex and may require a shift in mindset for developers who are used to traditional architectures.
+- **Learning Curve**: Clean Architecture has some complexity and may require a shift in mindset for developers who are used to traditional architectures.
 
-- **Potential for Over-Engineering**: There is a risk of over-engineering, especially if the architecture is applied to small or simple projects where a simpler design would suffice.
+- **Potential for Over-Engineering**: There can be a risk of over-engineering, especially if the architecture is applied to small or simple projects where a simpler design would suffice.
 
 - **Initial Setup**: Setting up the architecture can take more time initially, as it requires defining interfaces, adapters, and use cases.
 
@@ -372,7 +375,7 @@ public class JdbcOrderRepository implements OrderRepository {
 
 ----
 
-# Further Readings annd Links
+# Further Readings and Links
 
 - [Clean Architecture by Robert C. Martin](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164)
 - [Implementing Domain-Driven Design by Vaughn Vernon](https://www.amazon.com/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577)
