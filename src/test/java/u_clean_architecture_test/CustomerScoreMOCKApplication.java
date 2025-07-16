@@ -6,11 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import u_clean_architecture.a_domain.Order;
 import u_clean_architecture.b_usecases.CustomerScoreUseCase;
-import u_clean_architecture.c_ports.Logger;
-import u_clean_architecture.c_ports.OrderRepository;
-import u_clean_architecture.c_ports.ReturnRepository;
-import u_clean_architecture.d_adapters.Slf4jLoggerAdapter;
-import u_clean_architecture.e_application.CustomerScoreController;
+import u_clean_architecture.b_usecases.Logger;
+import u_clean_architecture.b_usecases.OrderRepository;
+import u_clean_architecture.b_usecases.ReturnRepository;
+import u_clean_architecture.c_adapters.Slf4jLoggerAdapter;
+import u_clean_architecture.d_application.CustomerScoreController;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;

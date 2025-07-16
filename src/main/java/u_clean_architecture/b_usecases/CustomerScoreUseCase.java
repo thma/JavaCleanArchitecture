@@ -3,9 +3,6 @@ package u_clean_architecture.b_usecases;
 import u_clean_architecture.a_domain.Customer;
 import u_clean_architecture.a_domain.Order;
 import u_clean_architecture.a_domain.Return;
-import u_clean_architecture.c_ports.Logger;
-import u_clean_architecture.c_ports.OrderRepository;
-import u_clean_architecture.c_ports.ReturnRepository;
 
 import java.util.List;
 

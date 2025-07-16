@@ -2,7 +2,7 @@ package u_clean_architecture_test;
 
 import org.junit.jupiter.api.Test;
 import u_clean_architecture.b_usecases.CustomerScoreUseCase;
-import u_clean_architecture.d_adapters.Slf4jLoggerAdapter;
+import u_clean_architecture.c_adapters.Slf4jLoggerAdapter;
 
 import java.util.List;
 

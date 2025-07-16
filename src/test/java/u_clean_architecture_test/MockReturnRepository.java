@@ -1,7 +1,7 @@
 package u_clean_architecture_test;
 
 import u_clean_architecture.a_domain.Return;
-import u_clean_architecture.c_ports.ReturnRepository;
+import u_clean_architecture.b_usecases.ReturnRepository;
 
 import java.util.List;
 
