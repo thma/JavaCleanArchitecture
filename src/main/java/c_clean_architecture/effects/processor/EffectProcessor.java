@@ -5,12 +5,10 @@ import c_clean_architecture.effects.annotations.*;
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
+import javax.lang.model.type.MirroredTypesException;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Annotation processor that validates effect usage at compile time.
@@ -25,16 +23,12 @@ import java.util.stream.Collectors;
 @SupportedSourceVersion(SourceVersion.RELEASE_17)
 public class EffectProcessor extends AbstractProcessor {
 
-    private Types typeUtils;
-    private Elements elementUtils;
     private Messager messager;
     private EffectAnalyzer analyzer;
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        this.typeUtils = processingEnv.getTypeUtils();
-        this.elementUtils = processingEnv.getElementUtils();
         this.messager = processingEnv.getMessager();
         this.analyzer = new EffectAnalyzer(processingEnv);
     }
@@ -140,8 +134,18 @@ public class EffectProcessor extends AbstractProcessor {
 
     private Set<String> getDeclaredEffects(Uses uses) {
         Set<String> effects = new HashSet<>();
-        for (Class<?> effectClass : uses.value()) {
-            effects.add(effectClass.getSimpleName());
+        try {
+            // This will throw MirroredTypesException during annotation processing
+            for (Class<?> effectClass : uses.value()) {
+                effects.add(effectClass.getSimpleName());
+            }
+        } catch (MirroredTypesException e) {
+            // During annotation processing, we get TypeMirrors instead of Classes
+            for (TypeMirror typeMirror : e.getTypeMirrors()) {
+                String fullName = typeMirror.toString();
+                String simpleName = fullName.substring(fullName.lastIndexOf('.') + 1);
+                effects.add(simpleName);
+            }
         }
         return effects;
     }
@@ -152,12 +156,25 @@ public class EffectProcessor extends AbstractProcessor {
 
     private Set<String> getAllowedUncheckedEffects(UncheckedEffects unchecked) {
         Set<String> effects = new HashSet<>();
-        if (unchecked.value().length == 0) {
-            // All effects are unchecked
-            effects.add("*");
-        } else {
-            for (Class<?> effectClass : unchecked.value()) {
-                effects.add(effectClass.getSimpleName());
+        try {
+            if (unchecked.value().length == 0) {
+                // All effects are unchecked
+                effects.add("*");
+            } else {
+                for (Class<?> effectClass : unchecked.value()) {
+                    effects.add(effectClass.getSimpleName());
+                }
+            }
+        } catch (MirroredTypesException e) {
+            // During annotation processing, we get TypeMirrors instead of Classes
+            if (e.getTypeMirrors().isEmpty()) {
+                effects.add("*");
+            } else {
+                for (TypeMirror typeMirror : e.getTypeMirrors()) {
+                    String fullName = typeMirror.toString();
+                    String simpleName = fullName.substring(fullName.lastIndexOf('.') + 1);
+                    effects.add(simpleName);
+                }
             }
         }
         return effects;
