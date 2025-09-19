@@ -3,6 +3,8 @@ package c_clean_architecture.b_usecases;
 import c_clean_architecture.a_domain.Customer;
 import c_clean_architecture.a_domain.Order;
 import c_clean_architecture.a_domain.Return;
+import c_clean_architecture.effects.annotations.Pure;
+import c_clean_architecture.effects.annotations.Uses;
 import c_clean_architecture.effects.core.Eff;
 import c_clean_architecture.effects.definitions.LogEffect;
 import c_clean_architecture.effects.definitions.OrderRepositoryEffect;
@@ -11,19 +13,20 @@ import c_clean_architecture.effects.definitions.ReturnRepositoryEffect;
 import java.util.List;
 
 /**
- * Customer score use case implemented using algebraic effects.
- * This version separates effect declaration from interpretation,
- * making the code more testable and composable.
+ * Customer score use case implemented using algebraic effects with compile-time effect checking.
+ * This version separates effect declaration from interpretation and uses annotations
+ * to make effects visible in method signatures, enabling compile-time validation.
  */
 public class CustomerScoreUseCaseEffects {
 
     /**
      * Calculate the score for a customer using algebraic effects.
-     * The computation is pure and effects are handled by the runtime.
+     * All effects used are declared in the @Uses annotation for compile-time checking.
      *
      * @param customerId the customer ID
      * @return an Eff that will produce the score when executed
      */
+    @Uses({LogEffect.class, OrderRepositoryEffect.class, ReturnRepositoryEffect.class})
     public Eff<Integer> calculateScore(Long customerId) {
         // Log the start of calculation
         return log(new LogEffect.Info("Calculating score for customer " + customerId))
@@ -49,7 +52,9 @@ public class CustomerScoreUseCaseEffects {
 
     /**
      * Alternative implementation with sequential fetching.
+     * Uses the same effects as the parallel version.
      */
+    @Uses({LogEffect.class, OrderRepositoryEffect.class, ReturnRepositoryEffect.class})
     public Eff<Integer> calculateScoreSequential(Long customerId) {
         return for_(
             log(new LogEffect.Info("Calculating score for customer " + customerId)),
@@ -66,7 +71,9 @@ public class CustomerScoreUseCaseEffects {
 
     /**
      * Calculate score with error handling.
+     * Uses the same effects but adds recovery logic.
      */
+    @Uses({LogEffect.class, OrderRepositoryEffect.class, ReturnRepositoryEffect.class})
     public Eff<Integer> calculateScoreWithRecovery(Long customerId) {
         return calculateScore(customerId)
             .recover(error -> {
@@ -76,21 +83,25 @@ public class CustomerScoreUseCaseEffects {
             });
     }
 
-    // Helper methods for creating effects
+    // Helper methods for creating effects with proper annotations
 
+    @Uses(LogEffect.class)
     private Eff<Void> log(LogEffect effect) {
         return Eff.perform(effect);
     }
 
+    @Uses(OrderRepositoryEffect.class)
     private Eff<List<Order>> getOrders(Long customerId) {
         return Eff.perform(new OrderRepositoryEffect.FindByCustomerId(customerId));
     }
 
+    @Uses(ReturnRepositoryEffect.class)
     private Eff<List<Return>> getReturns(Long customerId) {
         return Eff.perform(new ReturnRepositoryEffect.FindByCustomerId(customerId));
     }
 
-    // Monadic for-comprehension helper
+    // Monadic for-comprehension helper - pure function, no effects
+    @Pure(reason = "Pure combinator for effect composition")
     private <A, B, C, D> Eff<D> for_(
         Eff<A> effA,
         Eff<B> effB,

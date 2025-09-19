@@ -34,7 +34,7 @@ public class ComputeScoreDomainTest {
         new Order(1L, BigDecimal.valueOf(100))
     );
     List<Return> returns = List.of(
-        new Return(1L, LocalDate.now(), BigDecimal.valueOf(50))
+        new Return(1L, 1L, "Test return", LocalDate.now(), BigDecimal.valueOf(50))
     );
 
     // When
@@ -56,7 +56,7 @@ public class ComputeScoreDomainTest {
         new Order(5L, BigDecimal.valueOf(500))
     );
     List<Return> returns = List.of(
-        new Return(5L, LocalDate.now(), BigDecimal.valueOf(500))
+        new Return(1L, 5L, "Test return", LocalDate.now(), BigDecimal.valueOf(500))
     );
 
     // When

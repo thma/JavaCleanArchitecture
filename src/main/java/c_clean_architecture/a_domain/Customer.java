@@ -27,7 +27,7 @@ public class Customer {
       return 100;
     } else {
       return totalOrderValue.subtract(totalReturnValue)
-          .divide(totalOrderValue)
+          .divide(totalOrderValue, 4, java.math.RoundingMode.HALF_UP)
           .multiply(BigDecimal.valueOf(100))
           .intValue();
     }
