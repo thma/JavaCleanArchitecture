@@ -1,18 +1,18 @@
-package c_clean_architecture.effects;
+package org.jiffy;
 
 import c_clean_architecture.a_domain.Order;
 import c_clean_architecture.a_domain.Return;
 import c_clean_architecture.b_usecases.CustomerScoreUseCaseEffects;
-import c_clean_architecture.effects.annotations.Pure;
-import c_clean_architecture.effects.annotations.Uses;
-import c_clean_architecture.effects.core.Eff;
-import c_clean_architecture.effects.core.EffectRuntime;
-import c_clean_architecture.effects.definitions.LogEffect;
-import c_clean_architecture.effects.definitions.OrderRepositoryEffect;
-import c_clean_architecture.effects.definitions.ReturnRepositoryEffect;
-import c_clean_architecture.effects.handlers.CollectingLogHandler;
-import c_clean_architecture.effects.handlers.InMemoryOrderRepositoryHandler;
-import c_clean_architecture.effects.handlers.InMemoryReturnRepositoryHandler;
+import org.jiffy.annotations.Pure;
+import org.jiffy.annotations.Uses;
+import org.jiffy.core.Eff;
+import org.jiffy.core.EffectRuntime;
+import org.jiffy.definitions.LogEffect;
+import org.jiffy.definitions.OrderRepositoryEffect;
+import org.jiffy.definitions.ReturnRepositoryEffect;
+import org.jiffy.handlers.CollectingLogHandler;
+import org.jiffy.handlers.InMemoryOrderRepositoryHandler;
+import org.jiffy.handlers.InMemoryReturnRepositoryHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

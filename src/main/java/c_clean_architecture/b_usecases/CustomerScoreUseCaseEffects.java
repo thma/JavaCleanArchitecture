@@ -3,12 +3,12 @@ package c_clean_architecture.b_usecases;
 import c_clean_architecture.a_domain.Customer;
 import c_clean_architecture.a_domain.Order;
 import c_clean_architecture.a_domain.Return;
-import c_clean_architecture.effects.annotations.Pure;
-import c_clean_architecture.effects.annotations.Uses;
-import c_clean_architecture.effects.core.Eff;
-import c_clean_architecture.effects.definitions.LogEffect;
-import c_clean_architecture.effects.definitions.OrderRepositoryEffect;
-import c_clean_architecture.effects.definitions.ReturnRepositoryEffect;
+import org.jiffy.annotations.Pure;
+import org.jiffy.annotations.Uses;
+import org.jiffy.core.Eff;
+import org.jiffy.definitions.LogEffect;
+import org.jiffy.definitions.OrderRepositoryEffect;
+import org.jiffy.definitions.ReturnRepositoryEffect;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class CustomerScoreUseCaseEffects {
      * @param customerId the customer ID
      * @return an Eff that will produce the score when executed
      */
-    @Uses({LogEffect.class, OrderRepositoryEffect.class, ReturnRepositoryEffect.class})
+    @Uses({LogEffect.class,OrderRepositoryEffect.class, ReturnRepositoryEffect.class})
     public Eff<Integer> calculateScore(Long customerId) {
         // Log the start of calculation
         return log(new LogEffect.Info("Calculating score for customer " + customerId))

@@ -1,13 +1,12 @@
-package c_clean_architecture.effects.handlers;
+package org.jiffy.handlers;
 
 import c_clean_architecture.a_domain.Order;
-import c_clean_architecture.effects.core.EffectHandler;
-import c_clean_architecture.effects.definitions.OrderRepositoryEffect;
+import org.jiffy.core.EffectHandler;
+import org.jiffy.definitions.OrderRepositoryEffect;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 

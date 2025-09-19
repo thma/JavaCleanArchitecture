@@ -1,14 +1,12 @@
-package c_clean_architecture.effects.handlers;
+package org.jiffy.handlers;
 
 import c_clean_architecture.a_domain.Return;
-import c_clean_architecture.effects.core.EffectHandler;
-import c_clean_architecture.effects.definitions.ReturnRepositoryEffect;
+import org.jiffy.core.EffectHandler;
+import org.jiffy.definitions.ReturnRepositoryEffect;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 

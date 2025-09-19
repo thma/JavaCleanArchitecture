@@ -1,4 +1,4 @@
-package c_clean_architecture.effects.core;
+package org.jiffy.core;
 
 import java.util.HashMap;
 import java.util.Map;

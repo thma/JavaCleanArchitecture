@@ -1,13 +1,13 @@
-package c_clean_architecture.effects.runtime;
+package org.jiffy.runtime;
 
 import c_clean_architecture.b_usecases.CustomerScoreUseCaseEffects;
-import c_clean_architecture.effects.core.EffectRuntime;
-import c_clean_architecture.effects.definitions.LogEffect;
-import c_clean_architecture.effects.definitions.OrderRepositoryEffect;
-import c_clean_architecture.effects.definitions.ReturnRepositoryEffect;
-import c_clean_architecture.effects.handlers.JdbcOrderRepositoryHandler;
-import c_clean_architecture.effects.handlers.JdbcReturnRepositoryHandler;
-import c_clean_architecture.effects.handlers.Slf4jLogHandler;
+import org.jiffy.core.EffectRuntime;
+import org.jiffy.definitions.LogEffect;
+import org.jiffy.definitions.OrderRepositoryEffect;
+import org.jiffy.definitions.ReturnRepositoryEffect;
+import org.jiffy.handlers.JdbcOrderRepositoryHandler;
+import org.jiffy.handlers.JdbcReturnRepositoryHandler;
+import org.jiffy.handlers.Slf4jLogHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

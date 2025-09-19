@@ -1,7 +1,7 @@
-package c_clean_architecture.effects.definitions;
+package org.jiffy.definitions;
 
 import c_clean_architecture.a_domain.Return;
-import c_clean_architecture.effects.core.Effect;
+import org.jiffy.core.Effect;
 import java.util.List;
 import java.util.Optional;
 

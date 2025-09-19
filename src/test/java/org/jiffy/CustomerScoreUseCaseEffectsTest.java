@@ -1,22 +1,20 @@
-package c_clean_architecture.effects;
+package org.jiffy;
 
 import c_clean_architecture.a_domain.Order;
 import c_clean_architecture.a_domain.Return;
 import c_clean_architecture.b_usecases.CustomerScoreUseCaseEffects;
-import c_clean_architecture.effects.core.Effect;
-import c_clean_architecture.effects.core.Eff;
-import c_clean_architecture.effects.core.EffectRuntime;
-import c_clean_architecture.effects.definitions.LogEffect;
-import c_clean_architecture.effects.definitions.OrderRepositoryEffect;
-import c_clean_architecture.effects.definitions.ReturnRepositoryEffect;
-import c_clean_architecture.effects.handlers.CollectingLogHandler;
-import c_clean_architecture.effects.handlers.InMemoryOrderRepositoryHandler;
-import c_clean_architecture.effects.handlers.InMemoryReturnRepositoryHandler;
+import org.jiffy.core.Effect;
+import org.jiffy.core.Eff;
+import org.jiffy.core.EffectRuntime;
+import org.jiffy.definitions.LogEffect;
+import org.jiffy.definitions.OrderRepositoryEffect;
+import org.jiffy.definitions.ReturnRepositoryEffect;
+import org.jiffy.handlers.CollectingLogHandler;
+import org.jiffy.handlers.InMemoryOrderRepositoryHandler;
+import org.jiffy.handlers.InMemoryReturnRepositoryHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import c_clean_architecture.effects.annotations.Uses;
-
+import org.jiffy.annotations.Uses;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -98,7 +96,7 @@ public class CustomerScoreUseCaseEffectsTest {
         );
 
         orderHandler.addOrdersForCustomer(customerId, orders);
-        returnHandler.addReturnsForCustomer(customerId, Arrays.asList());
+        returnHandler.addReturnsForCustomer(customerId, List.of());
 
         // When
         Eff<Integer> scoreEffect = useCase.calculateScore(customerId);
@@ -120,8 +118,8 @@ public class CustomerScoreUseCaseEffectsTest {
         // Given
         Long customerId = 789L;
 
-        orderHandler.addOrdersForCustomer(customerId, Arrays.asList());
-        returnHandler.addReturnsForCustomer(customerId, Arrays.asList());
+        orderHandler.addOrdersForCustomer(customerId, List.of());
+        returnHandler.addReturnsForCustomer(customerId, List.of());
 
         // When
         Eff<Integer> scoreEffect = useCase.calculateScore(customerId);
@@ -146,7 +144,7 @@ public class CustomerScoreUseCaseEffectsTest {
         // With FlatMap-based effects, we can only collect the first effect
         // before execution, since subsequent effects are generated dynamically
         // based on the results of previous effects
-        assertTrue(effects.size() >= 1, "Should have at least the initial effect");
+        assertFalse(effects.isEmpty(), "Should have at least the initial effect");
 
         // First effect should be info log
         assertInstanceOf(LogEffect.Info.class, effects.get(0));
@@ -162,12 +160,12 @@ public class CustomerScoreUseCaseEffectsTest {
         // Given
         Long customerId = 123L;
 
-        List<Order> orders = Arrays.asList(
-            new Order(1L, new BigDecimal("500.00"))
+        List<Order> orders = List.of(
+                new Order(1L, new BigDecimal("500.00"))
         );
 
-        List<Return> returns = Arrays.asList(
-            new Return(1L, 1L, "Defective", LocalDate.now(), new BigDecimal("100.00"))
+        List<Return> returns = List.of(
+                new Return(1L, 1L, "Defective", LocalDate.now(), new BigDecimal("100.00"))
         );
 
         orderHandler.addOrdersForCustomer(customerId, orders);
@@ -210,12 +208,12 @@ public class CustomerScoreUseCaseEffectsTest {
         // Given
         Long customerId = 123L;
 
-        List<Order> orders = Arrays.asList(
-            new Order(1L, new BigDecimal("100.00"))
+        List<Order> orders = List.of(
+                new Order(1L, new BigDecimal("100.00"))
         );
 
         orderHandler.addOrdersForCustomer(customerId, orders);
-        returnHandler.addReturnsForCustomer(customerId, Arrays.asList());
+        returnHandler.addReturnsForCustomer(customerId, List.of());
 
         // When
         Eff<Integer> scoreEffect = useCase.calculateScoreWithRecovery(customerId);
@@ -234,16 +232,16 @@ public class CustomerScoreUseCaseEffectsTest {
         Long customer1 = 1L;
         Long customer2 = 2L;
 
-        orderHandler.addOrdersForCustomer(customer1, Arrays.asList(
-            new Order(1L, new BigDecimal("100.00"))
+        orderHandler.addOrdersForCustomer(customer1, List.of(
+                new Order(1L, new BigDecimal("100.00"))
         ));
-        returnHandler.addReturnsForCustomer(customer1, Arrays.asList());
+        returnHandler.addReturnsForCustomer(customer1, List.of());
 
-        orderHandler.addOrdersForCustomer(customer2, Arrays.asList(
-            new Order(2L, new BigDecimal("200.00"))
+        orderHandler.addOrdersForCustomer(customer2, List.of(
+                new Order(2L, new BigDecimal("200.00"))
         ));
-        returnHandler.addReturnsForCustomer(customer2, Arrays.asList(
-            new Return(1L, 2L, "Wrong size", LocalDate.now(), new BigDecimal("50.00"))
+        returnHandler.addReturnsForCustomer(customer2, List.of(
+                new Return(1L, 2L, "Wrong size", LocalDate.now(), new BigDecimal("50.00"))
         ));
 
         // When

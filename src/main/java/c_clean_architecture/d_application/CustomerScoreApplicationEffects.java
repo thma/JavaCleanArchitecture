@@ -1,6 +1,6 @@
 package c_clean_architecture.d_application;
 
-import c_clean_architecture.effects.runtime.EffectConfiguration;
+import org.jiffy.runtime.EffectConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;

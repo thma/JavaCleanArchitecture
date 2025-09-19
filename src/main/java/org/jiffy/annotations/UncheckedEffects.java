@@ -1,6 +1,4 @@
-package c_clean_architecture.effects.annotations;
-
-import c_clean_architecture.effects.core.Effect;
+package org.jiffy.annotations;
 
 import java.lang.annotation.*;
 

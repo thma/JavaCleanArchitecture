@@ -1,8 +1,8 @@
 package c_clean_architecture.d_application;
 
 import c_clean_architecture.b_usecases.CustomerScoreUseCaseEffects;
-import c_clean_architecture.effects.core.Eff;
-import c_clean_architecture.effects.core.EffectRuntime;
+import org.jiffy.core.Eff;
+import org.jiffy.core.EffectRuntime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

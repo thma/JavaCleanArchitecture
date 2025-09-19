@@ -1,8 +1,8 @@
-package c_clean_architecture.effects.annotations.groups;
+package org.jiffy.annotations.groups;
 
-import c_clean_architecture.effects.annotations.EffectGroup;
-import c_clean_architecture.effects.definitions.OrderRepositoryEffect;
-import c_clean_architecture.effects.definitions.ReturnRepositoryEffect;
+import org.jiffy.annotations.EffectGroup;
+import org.jiffy.definitions.OrderRepositoryEffect;
+import org.jiffy.definitions.ReturnRepositoryEffect;
 
 import java.lang.annotation.*;
 

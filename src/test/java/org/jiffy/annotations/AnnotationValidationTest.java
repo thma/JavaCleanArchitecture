@@ -1,12 +1,16 @@
-package c_clean_architecture.effects.annotations;
+package org.jiffy.annotations;
 
 import c_clean_architecture.a_domain.Customer;
 import c_clean_architecture.a_domain.Order;
 import c_clean_architecture.a_domain.Return;
-import c_clean_architecture.effects.core.Eff;
-import c_clean_architecture.effects.definitions.LogEffect;
-import c_clean_architecture.effects.definitions.OrderRepositoryEffect;
-import c_clean_architecture.effects.definitions.ReturnRepositoryEffect;
+import org.jiffy.annotations.Provides;
+import org.jiffy.annotations.Pure;
+import org.jiffy.annotations.UncheckedEffects;
+import org.jiffy.annotations.Uses;
+import org.jiffy.core.Eff;
+import org.jiffy.definitions.LogEffect;
+import org.jiffy.definitions.OrderRepositoryEffect;
+import org.jiffy.definitions.ReturnRepositoryEffect;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

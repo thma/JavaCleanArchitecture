@@ -96,9 +96,9 @@
                             <target>17</target>
                             <proc>none</proc>
                             <includes>
-                                <include>**/effects/processor/**</include>
-                                <include>**/effects/annotations/**</include>
-                                <include>**/effects/core/Effect.java</include>
+                                <include>**/jiffy/processor/**</include>
+                                <include>**/jiffy/annotations/**</include>
+                                <include>**/jiffy/core/Effect.java</include>
                             </includes>
                             <compilerArgs>
                                 <arg>-parameters</arg>

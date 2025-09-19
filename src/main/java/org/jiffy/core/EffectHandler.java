@@ -1,4 +1,4 @@
-package c_clean_architecture.effects.core;
+package org.jiffy.core;
 
 /**
  * Interface for effect handlers that interpret effects.

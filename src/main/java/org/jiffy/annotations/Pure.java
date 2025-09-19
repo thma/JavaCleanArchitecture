@@ -1,4 +1,4 @@
-package c_clean_architecture.effects.annotations;
+package org.jiffy.annotations;
 
 import java.lang.annotation.*;
 

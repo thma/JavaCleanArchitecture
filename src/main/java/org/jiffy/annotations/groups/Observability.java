@@ -1,7 +1,7 @@
-package c_clean_architecture.effects.annotations.groups;
+package org.jiffy.annotations.groups;
 
-import c_clean_architecture.effects.annotations.EffectGroup;
-import c_clean_architecture.effects.definitions.LogEffect;
+import org.jiffy.annotations.EffectGroup;
+import org.jiffy.definitions.LogEffect;
 
 import java.lang.annotation.*;
 

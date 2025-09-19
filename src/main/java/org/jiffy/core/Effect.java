@@ -1,4 +1,4 @@
-package c_clean_architecture.effects.core;
+package org.jiffy.core;
 
 /**
  * Base interface for all effects in the system.

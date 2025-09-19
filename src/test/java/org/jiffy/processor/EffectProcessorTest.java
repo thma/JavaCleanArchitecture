@@ -1,4 +1,4 @@
-package c_clean_architecture.effects.processor;
+package org.jiffy.processor;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,6 +1,6 @@
-package c_clean_architecture.effects.definitions;
+package org.jiffy.definitions;
 
-import c_clean_architecture.effects.core.Effect;
+import org.jiffy.core.Effect;
 
 /**
  * Effect for logging operations.

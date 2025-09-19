@@ -1,6 +1,9 @@
-package c_clean_architecture.effects.processor;
+package org.jiffy.processor;
 
-import c_clean_architecture.effects.annotations.*;
+import org.jiffy.annotations.Provides;
+import org.jiffy.annotations.Pure;
+import org.jiffy.annotations.UncheckedEffects;
+import org.jiffy.annotations.Uses;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;

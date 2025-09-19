@@ -1,7 +1,7 @@
-package c_clean_architecture.effects.handlers;
+package org.jiffy.handlers;
 
-import c_clean_architecture.effects.core.EffectHandler;
-import c_clean_architecture.effects.definitions.LogEffect;
+import org.jiffy.core.EffectHandler;
+import org.jiffy.definitions.LogEffect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

@@ -1,11 +1,10 @@
-package c_clean_architecture.effects.handlers;
+package org.jiffy.handlers;
 
 import c_clean_architecture.a_domain.Order;
-import c_clean_architecture.effects.core.EffectHandler;
-import c_clean_architecture.effects.definitions.OrderRepositoryEffect;
+import org.jiffy.core.EffectHandler;
+import org.jiffy.definitions.OrderRepositoryEffect;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * In-memory implementation of OrderRepositoryEffect handler for testing.

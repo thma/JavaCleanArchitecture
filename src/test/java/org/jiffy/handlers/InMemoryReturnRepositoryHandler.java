@@ -1,8 +1,8 @@
-package c_clean_architecture.effects.handlers;
+package org.jiffy.handlers;
 
 import c_clean_architecture.a_domain.Return;
-import c_clean_architecture.effects.core.EffectHandler;
-import c_clean_architecture.effects.definitions.ReturnRepositoryEffect;
+import org.jiffy.core.EffectHandler;
+import org.jiffy.definitions.ReturnRepositoryEffect;
 
 import java.util.*;
 

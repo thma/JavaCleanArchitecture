@@ -1,4 +1,4 @@
-package c_clean_architecture.effects.processor;
+package org.jiffy.processor;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.*;
