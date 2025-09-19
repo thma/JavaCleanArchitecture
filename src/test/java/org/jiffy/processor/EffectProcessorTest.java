@@ -101,8 +101,10 @@ public class EffectProcessorTest {
             effects.add("ReturnRepositoryEffect");
         }
 
-        // Special case for known methods
-        if (methodName.equals("calculateScore")) {
+        // Special case for calculateScore methods (matches EffectAnalyzer implementation)
+        if (methodName.contains("calculateScore") ||
+            methodName.equals("calculateScoreWithRecovery") ||
+            methodName.equals("calculateScoreSequential")) {
             effects.add("LogEffect");
             effects.add("OrderRepositoryEffect");
             effects.add("ReturnRepositoryEffect");
@@ -130,5 +132,61 @@ public class EffectProcessorTest {
         assertEquals(2, effects.size(), "Should detect both Log and Order effects");
         assertTrue(effects.contains("LogEffect"));
         assertTrue(effects.contains("OrderRepositoryEffect"));
+    }
+
+    @Test
+    void testCalculateScoreSequentialDetection() {
+        // Test that calculateScoreSequential is properly detected
+        Set<String> effects = analyzeMethodName("calculateScoreSequential");
+
+        assertEquals(3, effects.size(),
+            "calculateScoreSequential should detect all 3 effects");
+        assertTrue(effects.contains("LogEffect"),
+            "calculateScoreSequential should use LogEffect");
+        assertTrue(effects.contains("OrderRepositoryEffect"),
+            "calculateScoreSequential should use OrderRepositoryEffect");
+        assertTrue(effects.contains("ReturnRepositoryEffect"),
+            "calculateScoreSequential should use ReturnRepositoryEffect");
+    }
+
+    @Test
+    void testCalculateScoreVariationsDetection() {
+        // Test various calculateScore method names
+        String[] methodNames = {
+            "calculateScore",
+            "calculateScoreSequential",
+            "calculateScoreWithRecovery",
+            "calculateScoreAsync",
+            "calculateScoreForCustomer"
+        };
+
+        for (String methodName : methodNames) {
+            Set<String> effects = analyzeMethodName(methodName);
+
+            assertEquals(3, effects.size(),
+                String.format("%s should detect all 3 effects", methodName));
+            assertTrue(effects.contains("LogEffect"),
+                String.format("%s should detect LogEffect", methodName));
+            assertTrue(effects.contains("OrderRepositoryEffect"),
+                String.format("%s should detect OrderRepositoryEffect", methodName));
+            assertTrue(effects.contains("ReturnRepositoryEffect"),
+                String.format("%s should detect ReturnRepositoryEffect", methodName));
+        }
+    }
+
+    @Test
+    void testPartialPatternMatching() {
+        // Test that partial patterns don't trigger false positives
+        Set<String> effects = analyzeMethodName("calculate");
+        assertTrue(effects.isEmpty(),
+            "'calculate' alone should not trigger score effects");
+
+        effects = analyzeMethodName("getScore");
+        assertTrue(effects.isEmpty(),
+            "'getScore' should not trigger score effects");
+
+        effects = analyzeMethodName("scoreCalculation");
+        assertTrue(effects.isEmpty(),
+            "'scoreCalculation' should not trigger score effects");
     }
 }

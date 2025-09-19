@@ -15,10 +15,14 @@ import c_clean_architecture.effects.handlers.InMemoryReturnRepositoryHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import c_clean_architecture.effects.annotations.Uses;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -176,6 +180,29 @@ public class CustomerScoreUseCaseEffectsTest {
         // Then
         // Score = (500 - 100) / 500 * 100 = 80
         assertEquals(80, score);
+    }
+
+    @Test
+    void testCalculateScoreSequentialHasCorrectAnnotations() throws NoSuchMethodException {
+        // Verify that calculateScoreSequential has the right annotations
+        var method = CustomerScoreUseCaseEffects.class
+            .getMethod("calculateScoreSequential", Long.class);
+
+        Uses uses = method.getAnnotation(Uses.class);
+        assertNotNull(uses, "calculateScoreSequential should have @Uses annotation");
+
+        // Check that all required effects are declared
+        Set<Class<?>> declaredEffects = new HashSet<>(Arrays.asList(uses.value()));
+
+        assertTrue(declaredEffects.contains(LogEffect.class),
+            "calculateScoreSequential must declare LogEffect");
+        assertTrue(declaredEffects.contains(OrderRepositoryEffect.class),
+            "calculateScoreSequential must declare OrderRepositoryEffect");
+        assertTrue(declaredEffects.contains(ReturnRepositoryEffect.class),
+            "calculateScoreSequential must declare ReturnRepositoryEffect");
+
+        assertEquals(3, declaredEffects.size(),
+            "calculateScoreSequential should declare exactly 3 effects");
     }
 
     @Test

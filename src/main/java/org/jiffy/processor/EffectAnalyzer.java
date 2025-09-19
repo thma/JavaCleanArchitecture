@@ -88,8 +88,10 @@ public class EffectAnalyzer {
             effects.add("LogEffect");
         }
 
-        // Check for calculateScore pattern
-        if (methodName.equals("calculateScore") || methodName.equals("calculateScoreWithRecovery")) {
+        // Check for calculateScore pattern - any method that calculates scores
+        if (methodName.contains("calculateScore") ||
+            methodName.equals("calculateScoreWithRecovery") ||
+            methodName.equals("calculateScoreSequential")) {
             effects.add("LogEffect");
             effects.add("OrderRepositoryEffect");
             effects.add("ReturnRepositoryEffect");

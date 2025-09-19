@@ -19,7 +19,9 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -91,9 +93,9 @@ public class AnnotatedEffectsIntegrationTest {
 
     @Test
     void testPureMethodsAreAnnotated() throws NoSuchMethodException {
-        // Find the for_ method using getDeclaredMethod for private method
+        // Find the do_ method using getDeclaredMethod for private method
         var method = CustomerScoreUseCaseEffects.class
-            .getDeclaredMethod("for_", Eff.class, Eff.class, Eff.class,
+            .getDeclaredMethod("do_", Eff.class, Eff.class, Eff.class,
                 CustomerScoreUseCaseEffects.class.getDeclaredClasses()[0]);
 
         Pure pure = method.getAnnotation(Pure.class);
@@ -153,6 +155,54 @@ public class AnnotatedEffectsIntegrationTest {
 
         // Then - should return default score
         assertEquals(100, score); // No orders/returns = perfect score
+    }
+
+    @Test
+    void testCalculateScoreSequentialHasCorrectAnnotations() throws NoSuchMethodException {
+        // Get the calculateScoreSequential method
+        var method = CustomerScoreUseCaseEffects.class
+            .getMethod("calculateScoreSequential", Long.class);
+
+        // Verify it has @Uses annotation
+        Uses uses = method.getAnnotation(Uses.class);
+        assertNotNull(uses, "calculateScoreSequential should have @Uses annotation");
+
+        // Verify all required effects are declared
+        var effectList = Arrays.asList(uses.value());
+        assertEquals(3, effectList.size(), "Should declare exactly 3 effects");
+
+        assertTrue(effectList.contains(LogEffect.class),
+            "Should declare LogEffect");
+        assertTrue(effectList.contains(OrderRepositoryEffect.class),
+            "Should declare OrderRepositoryEffect");
+        assertTrue(effectList.contains(ReturnRepositoryEffect.class),
+            "Should declare ReturnRepositoryEffect");
+    }
+
+    @Test
+    void testAllCalculateMethodsHaveConsistentEffects() throws NoSuchMethodException {
+        // All three calculate methods should declare the same effects
+        var calculateScore = CustomerScoreUseCaseEffects.class
+            .getMethod("calculateScore", Long.class);
+        var calculateScoreSequential = CustomerScoreUseCaseEffects.class
+            .getMethod("calculateScoreSequential", Long.class);
+        var calculateScoreWithRecovery = CustomerScoreUseCaseEffects.class
+            .getMethod("calculateScoreWithRecovery", Long.class);
+
+        Uses usesParallel = calculateScore.getAnnotation(Uses.class);
+        Uses usesSequential = calculateScoreSequential.getAnnotation(Uses.class);
+        Uses usesRecovery = calculateScoreWithRecovery.getAnnotation(Uses.class);
+
+        // Convert to sets for comparison
+        Set<Class<?>> parallelEffects = new HashSet<>(Arrays.asList(usesParallel.value()));
+        Set<Class<?>> sequentialEffects = new HashSet<>(Arrays.asList(usesSequential.value()));
+        Set<Class<?>> recoveryEffects = new HashSet<>(Arrays.asList(usesRecovery.value()));
+
+        // All should have the same effects
+        assertEquals(parallelEffects, sequentialEffects,
+            "calculateScore and calculateScoreSequential should use the same effects");
+        assertEquals(parallelEffects, recoveryEffects,
+            "calculateScore and calculateScoreWithRecovery should use the same effects");
     }
 
     @Test
