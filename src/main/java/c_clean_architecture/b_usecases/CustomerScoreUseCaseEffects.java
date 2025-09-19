@@ -56,13 +56,16 @@ public class CustomerScoreUseCaseEffects {
      */
     @Uses({LogEffect.class, OrderRepositoryEffect.class, ReturnRepositoryEffect.class})
     public Eff<Integer> calculateScoreSequential(Long customerId) {
-        return for_(
+        return do_(
             log(new LogEffect.Info("Calculating score for customer " + customerId)),
             getOrders(customerId),
             getReturns(customerId),
             (ignored, orders, returns) -> {
+                // Pure domain logic
                 Customer customer = new Customer(customerId);
                 int score = customer.calculateScore(orders, returns);
+
+                // Log the result
                 return log(new LogEffect.Info("Customer " + customerId + " has score " + score))
                     .map(v -> score);
             }
@@ -100,9 +103,9 @@ public class CustomerScoreUseCaseEffects {
         return Eff.perform(new ReturnRepositoryEffect.FindByCustomerId(customerId));
     }
 
-    // Monadic for-comprehension helper - pure function, no effects
+    // Monadic do-comprehension helper - pure function, no effects
     @Pure(reason = "Pure combinator for effect composition")
-    private <A, B, C, D> Eff<D> for_(
+    private <A, B, C, D> Eff<D> do_(
         Eff<A> effA,
         Eff<B> effB,
         Eff<C> effC,
